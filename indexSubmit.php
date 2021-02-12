@@ -13,7 +13,7 @@ $zipcode = $_POST["zipcode"];
 //add pop (no rain, must have rain, etc)
 //add email option
 
-$minTemp = "60";
+$minTemp = "30";
 $maxTemp = "80";
 $phoneNumber = "+15128108558";
 $zipcode = "78704";
@@ -91,8 +91,8 @@ for($k=0;$k<$count;$k++){
     $f=9/5*($temp-273.15)+32;
 
     $out = " $time [".formatPOP($pop, $f)."]: ".round($f, 1)."F%0a";
-    echo $out;
-    if($temp>=$minTemp && $temp<=$maxTemp)
+    //echo $out;
+    if($f>=$minTemp && $f<=$maxTemp)
         if(!in_array($out, $niceDays))
                 array_push($niceDays, $out);
 }
@@ -102,11 +102,11 @@ for($k=0;$k<$count;$k++){
         for($k=0;$k<count($niceDays);$k++)
             $text .= $niceDays[$k];        
         sendText($text);
-        echo $text;
+        echo $text."<BR>";
     }
     else{
         $out = "No Nice Days in the next 5 days.";
-        echo $out;
+        echo $out."<BR>";
         sendText($out);
     }
 
@@ -117,5 +117,5 @@ for($k=0;$k<$count;$k++){
 
 //echo $response;
 
-echo "EOF.";
+echo "<BR>EOF.";
 ?>
