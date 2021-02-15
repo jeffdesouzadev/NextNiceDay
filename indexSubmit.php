@@ -1,36 +1,26 @@
 <?php
 echo "Start file.<BR>";
-/* 
-TODO
- * SUCCESS! pulls data from the OpenWeather and uses Twilio to send a text!
- * 
- * Still need to write the index page to submit signup
- * Still need to save preferences on this page and run the first job
- * Still need to write the cronjob to run every day and evaluate.
- * 
- * index - add sliders for temperatures
- * index - add radio buttons for rain/no-rain/ignore
- * index - add radio buttons for wind/no-wind/ignore (kites!)
- * index - choose time of day for reminder
- * index - put in phone number
- * index - beta, add email address
- * 
- * indexSubmit.php - scrape wind and any other metrics
- * 
- * cronjob - make sure it works on GoDaddy
- */
-$minTemp = $_POST["minTemp"];
-$maxTemp = $_POST["maxTemp"];
-$phoneNumber = $_POST["phoneNumber"];
-$zipcode = $_POST["zipcode"];
+$name = $_POST["name"];
+if($name==""){
+    $minTemp = $_POST["minTemp"];
+    $maxTemp = $_POST["maxTemp"];
+    $phoneNumber = $_POST["phoneNumber"];
+    $zipcode = $_POST["zipcode"];
+    $TWILIO_AUTH = include("TWILIO_AUTH.PHP");
+    include("OPENWEATHER_AUTH.PHP");
+
+}
+else {
+    echo "Nice try, spammer!<BR>";
+}
 //todo
 //add pop (no rain, must have rain, etc)
 //add email option
 
-$minTemp = "30";
-$maxTemp = "80";
-$phoneNumber = "+15128108558";
-$zipcode = "78704";
+//$minTemp = "30";
+//$maxTemp = "80";
+//$phoneNumber = "+15128108558";
+//$zipcode = "78704";
 
 date_default_timezone_set('UTC');
 function epoch2Date($epoch){
@@ -76,7 +66,7 @@ else
 //query API for the 5Day Forecast
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'api.openweathermap.org/data/2.5/forecast?zip=75248&appid=373648924e85014a499f922007faf90b',
+  CURLOPT_URL => 'api.openweathermap.org/data/2.5/forecast?zip=75248&appid=$OPENWEATHER_AUTH',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -85,7 +75,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_HTTPHEADER => array(
-    'appid: 373648924e85014a499f922007faf90b'
+    'appid: $OPENWEATHER_AUTH'
   ),
 ));
 $response = curl_exec($curl);
@@ -119,7 +109,7 @@ for($k=0;$k<$count;$k++){
         echo $text."<BR>";
     }
     else{
-        $out = "No Nice Days in the next 5 days.";
+        $out = "No Nice Days ($minTemp - $maxTemp) in the next 5 days for $zipcode.";
         echo $out."<BR>";
         sendText($out);
     }
