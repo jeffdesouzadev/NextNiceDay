@@ -1,9 +1,23 @@
 <?php
 echo "Start file.<BR>";
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TODO
+ * SUCCESS! pulls data from the OpenWeather and uses Twilio to send a text!
+ * 
+ * Still need to write the index page to submit signup
+ * Still need to save preferences on this page and run the first job
+ * Still need to write the cronjob to run every day and evaluate.
+ * 
+ * index - add sliders for temperatures
+ * index - add radio buttons for rain/no-rain/ignore
+ * index - add radio buttons for wind/no-wind/ignore (kites!)
+ * index - choose time of day for reminder
+ * index - put in phone number
+ * index - beta, add email address
+ * 
+ * indexSubmit.php - scrape wind and any other metrics
+ * 
+ * cronjob - make sure it works on GoDaddy
  */
 $minTemp = $_POST["minTemp"];
 $maxTemp = $_POST["maxTemp"];
