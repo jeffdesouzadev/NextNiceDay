@@ -6,9 +6,10 @@ if($name==""){
     $maxTemp = $_POST["maxTemp"];
     $phoneNumber = $_POST["phoneNumber"];
     $zipcode = $_POST["zipcode"];
-    $TWILIO_AUTH = include("TWILIO_AUTH.PHP");
-    include("OPENWEATHER_AUTH.PHP");
-
+    include("TWILIO_AUTH.php");
+    include("OPENWEATHER_AUTH.php");
+    //$TWILIO_AUTH = 
+    
 }
 else {
     echo "Nice try, spammer!<BR>";
@@ -37,10 +38,11 @@ function formatPOP($popFraction, $temp){
         return "SNOW:$pop";
 }
 
-function sendText($message){
+function sendText($phoneNumber, $message){
+global $TWILIO_SID;
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.twilio.com/2010-04-01/Accounts/AC7cbd83c363a1a7b042046ff55df09c17/Messages.json',
+  CURLOPT_URL => 'https://api.twilio.com/2010-04-01/Accounts/'.$TWILIO_SID.'/Messages.json',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -48,7 +50,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => 'To=%2B15128108558&Body='.$message.'&MediaUrl=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FPnUatAYWMEMvmiwsyx%2Fgiphy.gif&From=%2B19165072052',
+  CURLOPT_POSTFIELDS => 'To=%2B1'.$phoneNumber.'&Body='.$message.'&MediaUrl=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FPnUatAYWMEMvmiwsyx%2Fgiphy.gif&From=%2B19165072052',
   CURLOPT_HTTPHEADER => array(
     'Authorization: Basic QUM3Y2JkODNjMzYzYTFhN2IwNDIwNDZmZjU1ZGYwOWMxNzpjZWRjYmE3ZTZhMWEzODQxNzdjYmFhZmU4ZWMyZWQzYQ==',
     'Content-Type: application/x-www-form-urlencoded'
@@ -60,13 +62,15 @@ if($response)
     echo "I have tried to send the message.<BR>";
 else
     echo "something went wrong.<BR>";
+
+//print_r($response);
 }
 
 
 //query API for the 5Day Forecast
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'api.openweathermap.org/data/2.5/forecast?zip=75248&appid=$OPENWEATHER_AUTH',
+  CURLOPT_URL => 'api.openweathermap.org/data/2.5/forecast?zip=75248&appid='.$OPENWEATHER_AUTH,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -75,7 +79,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_HTTPHEADER => array(
-    'appid: $OPENWEATHER_AUTH'
+    'appid: '.$OPENWEATHER_AUTH
   ),
 ));
 $response = curl_exec($curl);
@@ -105,13 +109,13 @@ for($k=0;$k<$count;$k++){
         $text = "";
         for($k=0;$k<count($niceDays);$k++)
             $text .= $niceDays[$k];        
-        sendText($text);
+        sendText($phoneNumber, $text);
         echo $text."<BR>";
     }
     else{
         $out = "No Nice Days ($minTemp - $maxTemp) in the next 5 days for $zipcode.";
         echo $out."<BR>";
-        sendText($out);
+        sendText($phoneNumber, $out);
     }
 
 
