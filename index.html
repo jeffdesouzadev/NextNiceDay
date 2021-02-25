@@ -1,69 +1,70 @@
-<form name="indexSubmit" method="post" action="indexSubmit.php">
-    <table>
-        <TR>
-            <TD>Min Temp</TD>
-            <TD><input type="text" size="2" name="minTemp"></TD>
-        </TR>
-        <TR>
-            <TD>Max Temp</TD>
-            <TD><input type="text" size="2" name="maxTemp"></TD>
-        </TR>
-        <TR>
-            <TD>Phone Number</TD>
-            <TD><input type="text" size="10" name="phoneNumber"></TD>
-        </TR>
-        <TR>
-            <TD>Zipcode</TD>
-            <TD><input type="text" size="10" name="zipcode"></TD>
-        </TR>
-        <TR>
-            <TD>Wind</TD>
-            <TD>
-                <select name='wind'>
-                    <option>HIGH</option>
-                    <option>LOW</option>
-                    <option selected>IGNORE</option>
-                </select>
-            </TD>
-        </TR>
-        <TR>
-            <TD>Clouds</TD>
-            <TD>
-                <select name='clouds'>
-                    <option>HIGH</option>
-                    <option>LOW</option>
-                    <option selected>IGNORE</option>
-                </select>
-            </TD>
-        </TR>
-        <TR>
-            <TD>Rain/Snow</TD>
-            <TD>
-                <select name='pop'>
-                    <option>HIGH</option>
-                    <option>LOW</option>
-                    <option selected>IGNORE</option>
-                </select>
-            </TD>                
-        </TR>
-        <TR>
-            <TD>Humidity</TD>
-            <TD>
-                <select name='humidity'>
-                    <option>HIGH</option>
-                    <option>LOW</option>
-                    <option selected>IGNORE</option>
-                </select>
-            </TD>
-        </TR>
-        
-        <TR>
-            <TD>Jeff's wife's name</TD>
-            <TD><input type="text" size="10" name="password"></TD>
-            <TD><input type="hidden" name="name"></TD>
-            <TD><input type="submit" name="submit"></TD>                    
-        </TR>
-    </table>    
-    
-    
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>NextNiceDay</title>
+</head>
+<body>
+    <div class="container">
+    <form class="form-table" name="indexSubmit" method="post" action="indexSubmit.php">
+      <h3>Min Temp</h3>
+                <input type="text" size="2" name="minTemp">
+            Max Temp
+            <input type="text" size="2" name="maxTemp">
+           
+            Phone Number
+            <input type="text" size="10" name="phoneNumber">
+           
+            Zipcode
+            <input type="text" size="10" name="zipcode">
+          
+            Wind<br>
+            
+                    <select name='wind'>
+                        <option>HIGH</option>
+                        <option>LOW</option>
+                        <option selected>IGNORE</option>
+                    </select>
+                
+          
+            Clouds<br>
+            
+                    <select name='clouds'>
+                        <option>HIGH</option>
+                        <option>LOW</option>
+                        <option selected>IGNORE</option>
+                    </select>
+                
+            Rain/Snow<br>
+            
+                    <select name='pop'>
+                        <option>HIGH</option>
+                        <option>LOW</option>
+                        <option selected>IGNORE</option>
+                    </select>
+                            
+            Humidity<br><br>
+            
+                    <select name='humidity'>
+                        <option>HIGH</option>
+                        <option>LOW</option>
+                        <option selected>IGNORE</option>
+                    </select>
+                
+          
+            Jeff's wife's name
+            <input type="text" size="10" name="password">
+            <input type="hidden" name="name">
+                <a class="waves-effect waves-light btn" type="submit" name="submit">Submit</a>                        
+    </form>
+    </div>
+</body>
+</html>
