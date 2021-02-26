@@ -1,7 +1,9 @@
 <?php
 echo "Start file.<BR>";
 $name = $_POST["name"];
-if($name==""){
+$password = $_POST["password"];
+
+if($name=="" && strtoupper($password)=="KRISTIN"){
     $minTemp = $_POST["minTemp"];
     $maxTemp = $_POST["maxTemp"];
     $phoneNumber = $_POST["phoneNumber"];
@@ -39,7 +41,11 @@ function formatPOP($popFraction, $temp){
 }
 
 function sendText($phoneNumber, $message){
+    
+    
 global $TWILIO_SID;
+global $TWILIO_PHONE_NUMBER;
+global $TWILIO_AUTH;
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://api.twilio.com/2010-04-01/Accounts/'.$TWILIO_SID.'/Messages.json',
@@ -50,9 +56,9 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => 'To=%2B1'.$phoneNumber.'&Body='.$message.'&MediaUrl=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FPnUatAYWMEMvmiwsyx%2Fgiphy.gif&From=%2B19165072052',
+  CURLOPT_POSTFIELDS => 'To=%2B1'.$phoneNumber.'&Body='.$message.'&MediaUrl=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FPnUatAYWMEMvmiwsyx%2Fgiphy.gif&From=%2B1'.$TWILIO_PHONE_NUMBER,
   CURLOPT_HTTPHEADER => array(
-    'Authorization: Basic QUM3Y2JkODNjMzYzYTFhN2IwNDIwNDZmZjU1ZGYwOWMxNzpjZWRjYmE3ZTZhMWEzODQxNzdjYmFhZmU4ZWMyZWQzYQ==',
+    'Authorization: Basic '.$TWILIO_AUTH,
     'Content-Type: application/x-www-form-urlencoded'
   ),
 ));
@@ -63,7 +69,7 @@ if($response)
 else
     echo "something went wrong.<BR>";
 
-//print_r($response);
+print_r($response);
 }
 
 
