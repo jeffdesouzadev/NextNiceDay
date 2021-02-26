@@ -7,13 +7,71 @@ html {
 }
 
 h1 {
-  font-family: poppins;
+  font-family: "Noto Serif", serif;
   text-align: center;
 }
 .container {
   height: 60vh;
 }
 
-.form-table {
-  margin: 40px;
+.col-5 {
+  width: 50%;
+}
+#cloud-1 {
+  animation: cloud-anim 5s alternate-reverse infinite linear;
+}
+
+#cloud-2 {
+  animation: cloud-anim 7s alternate-reverse infinite linear;
+}
+#cloud-3 {
+  animation: cloud-anim 4s alternate infinite linear;
+}
+#cloud-4 {
+  animation: cloud-anim 7s alternate infinite linear;
+}
+
+@keyframes cloud-anim {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-200px);
+  }
+}
+
+/* medial queries */
+@media only screen and (max-width: 700px) {
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  .col-5 {
+    margin-top: -40px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  h1 {
+    margin-bottom: -25px;
+    font-size: 24px;
+  }
+
+  .col-5 {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  h1 {
+    margin-bottom: -15px;
+    font-size: 24px;
+  }
+
+  .col-5 {
+    margin-top: 10px;
+    width: 100%;
+  }
 }
