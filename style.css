@@ -11,7 +11,8 @@ h1 {
   text-align: center;
 }
 .container {
-  height: 60vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .col-5 {
